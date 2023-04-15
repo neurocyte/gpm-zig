@@ -34,6 +34,6 @@ pub fn build(b: *std.build.Builder) void {
         lib.addCSourceFile(file, &flags);
     }
 
-    lib.install();
+    b.installArtifact(lib);
     lib.installHeader("src/headers/gpm.h", "gpm.h");
 }

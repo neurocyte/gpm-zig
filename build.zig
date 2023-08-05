@@ -29,9 +29,9 @@ pub fn build(b: *std.build.Builder) void {
     lib.defineCMacro("GPM_ABI_FULL", "\"2.1.0\"");
     lib.defineCMacro("SBINDIR", "\"/usr/bin\"");
     lib.linkLibC();
-    lib.addIncludePath(src_path);
+    lib.addIncludePath(.{ .path = src_path });
     for (source_files) |file| {
-        lib.addCSourceFile(file, &flags);
+        lib.addCSourceFiles(&[_][]const u8{file}, &flags);
     }
 
     b.installArtifact(lib);

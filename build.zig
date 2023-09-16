@@ -10,7 +10,6 @@ const source_files = [_][]const u8{
     "src/tools.c",
     // "src/lib/libcurses.c",
     "src/lib/libhigh.c",
-    "src/lib/liblow.c",
     "src/lib/libxtra.c",
     "src/lib/report-lib.c",
 };
@@ -33,6 +32,8 @@ pub fn build(b: *std.build.Builder) void {
     for (source_files) |file| {
         lib.addCSourceFiles(&[_][]const u8{file}, &flags);
     }
+    if (lib.target_info.target.os.tag == .linux)
+        lib.addCSourceFiles(&[_][]const u8{"src/lib/liblow.c"}, &flags);
 
     b.installArtifact(lib);
     lib.installHeader("src/headers/gpm.h", "gpm.h");

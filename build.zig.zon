@@ -2,4 +2,11 @@
     .name = "gpm",
     .version = "1.20.7-39",
     .dependencies = .{},
+    .paths = .{
+        "COPYING",
+        "README",
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
 }

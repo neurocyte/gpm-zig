@@ -30,10 +30,10 @@ pub fn build(b: *std.build.Builder) void {
     lib.linkLibC();
     lib.addIncludePath(.{ .path = src_path });
     for (source_files) |file| {
-        lib.addCSourceFiles(&[_][]const u8{file}, &flags);
+        lib.addCSourceFiles(.{ .files = &[_][]const u8{file}, .flags = &flags });
     }
     if (lib.target_info.target.os.tag == .linux)
-        lib.addCSourceFiles(&[_][]const u8{"src/lib/liblow.c"}, &flags);
+        lib.addCSourceFiles(.{ .files = &[_][]const u8{"src/lib/liblow.c"}, .flags = &flags });
 
     b.installArtifact(lib);
     lib.installHeader("src/headers/gpm.h", "gpm.h");

@@ -16,7 +16,7 @@ const source_files = [_][]const u8{
 
 const flags = [_][]const u8{};
 
-pub fn build(b: *std.build.Builder) void {
+pub fn build(b: *std.Build) void {
     const lib = b.addStaticLibrary(.{
         .name = "gpm",
         .target = b.standardTargetOptions(.{}),
@@ -32,7 +32,7 @@ pub fn build(b: *std.build.Builder) void {
     for (source_files) |file| {
         lib.addCSourceFiles(.{ .files = &[_][]const u8{file}, .flags = &flags });
     }
-    if (lib.target_info.target.os.tag == .linux)
+    if (lib.rootModuleTarget().os.tag == .linux)
         lib.addCSourceFiles(.{ .files = &[_][]const u8{"src/lib/liblow.c"}, .flags = &flags });
 
     b.installArtifact(lib);

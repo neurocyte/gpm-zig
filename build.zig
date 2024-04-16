@@ -36,5 +36,5 @@ pub fn build(b: *std.Build) void {
         lib.addCSourceFiles(.{ .files = &[_][]const u8{"src/lib/liblow.c"}, .flags = &flags });
 
     b.installArtifact(lib);
-    lib.installHeader("src/headers/gpm.h", "gpm.h");
+    lib.installHeader(.{ .path = "src/headers/gpm.h" }, "gpm.h");
 }

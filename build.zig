@@ -28,7 +28,7 @@ pub fn build(b: *std.Build) void {
     lib.defineCMacro("GPM_ABI_FULL", "\"2.1.0\"");
     lib.defineCMacro("SBINDIR", "\"/usr/bin\"");
     lib.linkLibC();
-    lib.addIncludePath(.{ .path = src_path });
+    lib.addIncludePath(b.path("src"));
     for (source_files) |file| {
         lib.addCSourceFiles(.{ .files = &[_][]const u8{file}, .flags = &flags });
     }
@@ -36,5 +36,5 @@ pub fn build(b: *std.Build) void {
         lib.addCSourceFiles(.{ .files = &[_][]const u8{"src/lib/liblow.c"}, .flags = &flags });
 
     b.installArtifact(lib);
-    lib.installHeader(.{ .path = "src/headers/gpm.h" }, "gpm.h");
+    lib.installHeader(b.path("src/headers/gpm.h"), "gpm.h");
 }

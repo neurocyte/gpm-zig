@@ -26,7 +26,7 @@ pub fn build(b: *std.Build) void {
     module.addCMacro("GPM_ABI_REV", "0");
     module.addCMacro("GPM_ABI_FULL", "\"2.1.0\"");
     module.addCMacro("SBINDIR", "\"/usr/bin\"");
-    const lib = b.addLibrary(.{ .name = "gpm", .root_module = module });
+    const lib = b.addLibrary(.{ .name = "gpm", .root_module = module, .linkage = std.builtin.LinkMode.static });
     lib.linkLibC();
     lib.addIncludePath(b.path("src"));
     for (source_files) |file| {

@@ -17,16 +17,16 @@ const source_files = [_][]const u8{
 const flags = [_][]const u8{};
 
 pub fn build(b: *std.Build) void {
-    const lib = b.addStaticLibrary(.{
-        .name = "gpm",
+    const module = b.createModule(.{
         .target = b.standardTargetOptions(.{}),
         .optimize = b.standardOptimizeOption(.{}),
     });
-    lib.defineCMacro("GPM_ABI_LEV", "2");
-    lib.defineCMacro("GPM_ABI_AGE", "1");
-    lib.defineCMacro("GPM_ABI_REV", "0");
-    lib.defineCMacro("GPM_ABI_FULL", "\"2.1.0\"");
-    lib.defineCMacro("SBINDIR", "\"/usr/bin\"");
+    module.addCMacro("GPM_ABI_LEV", "2");
+    module.addCMacro("GPM_ABI_AGE", "1");
+    module.addCMacro("GPM_ABI_REV", "0");
+    module.addCMacro("GPM_ABI_FULL", "\"2.1.0\"");
+    module.addCMacro("SBINDIR", "\"/usr/bin\"");
+    const lib = b.addLibrary(.{ .name = "gpm", .root_module = module });
     lib.linkLibC();
     lib.addIncludePath(b.path("src"));
     for (source_files) |file| {

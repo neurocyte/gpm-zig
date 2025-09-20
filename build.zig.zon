@@ -1,7 +1,7 @@
 .{
-    .name = .zig_init,
+    .name = .gpm,
     .version = "1.20.7-39",
-    .fingerprint = 0xe1e0797f23a1bc5,
+    .fingerprint = 0xaee560a45d53a886,
     .dependencies = .{},
     .paths = .{
         "COPYING",
